@@ -9,8 +9,14 @@ import image11 from '../images/11.svg'
 import image12 from '../images/12.svg'
 import image13 from '../images/13.svg'
 import image14 from '../images/14.svg'
+import Exit from '../images/Exit.svg'
 
-const Sheet = () => {
+const Reports = () => {
+
+  const [showImage, setshowImage] = useState([''])
+  const [prevImage, setPrevImage] = useState([''])
+  console.log("showImage---------->>>>>",showImage)
+  const [openModel, setOpenModel] = useState(false)
     const checkSheets =[
         {
           id:1,
@@ -49,7 +55,7 @@ const Sheet = () => {
           row : '16',
           activity : 'Tracker Components Installation',
           acceptanceCriteria	 : 'Heavy BHAs or Light BHAs',
-          comments : '¼” fastener of module in bay 3 (b/w Pier G and F) to be swaged ¼” fastener of module in bay 3 (b/w Pier G and F) to be swaged',
+          comments : 'Pier Twist out of tolerance',
           photos : [ image11, image12 ],
         },
       ]
@@ -57,6 +63,12 @@ const Sheet = () => {
       const [punchList,setPunchList] = useState('Public')
       const [currentPunchList] = useState('flex flex-row bg-red-500 text-slate-100 w-44	rounded-3xl text-center text-xs leading-4 font-semibold	py-3 px-6 items-center justify-start cursor-pointer')
       const [hidePunchList] = useState('flex flex-row bg-red-100 text-slate-700 w-44	rounded-3xl text-center text-xs leading-4 font-semibold	py-3 px-6 items-center justify-start cursor-pointer')
+
+      const handleImage = ( photo) => {
+        setshowImage(photo[0])
+        setPrevImage([...photo])
+        setOpenModel(true)
+      }
   return <>
   <div className="flex h-screen">
       <SideBar/>
@@ -102,43 +114,85 @@ const Sheet = () => {
                   </div>
                 </div>
                 <div>
-                <table className="table-auto border-slate-100	">
-                  <thead className='h-14 border-slate-100	 hover:border-fuchsia-500 border-2'>
-                    <tr >
-                      <th className='p-2'>Block</th>
-                      <th className='p-2'>Section</th>
-                      <th className='p-2'>Row</th>
-                      <th className='p-2'>Activity / Sub-Activity</th>
-                      <th className='p-2'>Acceptance Criteria</th>
-                      <th className='p-2'>Comments</th>
-                      <th className='p-2'>Photos</th>
-                    </tr>
-                  </thead >
-                    <tbody className='border-slate-100	hover:border-cyan-600 border-2 mt-4'>
-                      {
-                        checkSheets?.map((item, index) => (
-                          <>
-                        <tr className=" border-slate-100	border " key={item?.id}>
-                        <td className='p-2'>{item?.block}</td>
-                        <td className='p-2'>{item?.section}</td>
-                        <td className='p-2'>{item?.row}</td>
-                        <td className='p-2'>{item?.activity}</td>
-                        <td className='p-2'>{item?.acceptanceCriteria}</td>
-                        <td className='p-2'><p className = {`${item?.comments === "Resolved" ? 'text-green-600' : ''}`}>{item?.comments}</p></td>
-                        <td className='p-2 w-48	grid grid-cols-2 gap-4'>
-                        {
-                            item?.photos?.map((photo, index) => (
-                              <img key={index} src={photo} alt={`Photo ${index + 1}`} />
-                          ))
-                        }                         
-                        </td>
+                <table className="table-auto border-slate-100 w-full">
+                  <thead className='h-14 border-slate-100 hover:border-fuchsia-500 border-2'>
+                      <tr className='hover:cursor-pointer'>
+                          <th className='p-2 font-manrope font-semibold text-xs leading-4 '>
+                              <div className='flex flex-row'>Blocks<img src={DownArrow} alt="Block" className=''/></div> 
+                          </th>
+                          <th className='p-2 font-manrope font-semibold text-xs leading-4 '>
+                              <div className='flex flex-row'>Section <img src={DownArrow} alt="Section" /></div>
+                          </th>
+                          <th className='p-2 font-manrope font-semibold text-xs leading-4'>
+                          <div className='flex flex-row'>Row <img src={DownArrow} alt="Row" /></div>
+                          </th>
+                          <th className='p-2 font-manrope font-semibold text-xs leading-4'>
+                              Activity / Sub-Activity
+                          </th>
+                          <th className='p-2 font-manrope font-semibold text-xs leading-4'>
+                              Acceptance Criteria
+                          </th>
+                          <th className='p-2 font-manrope font-semibold text-xs leading-4'>
+                              Comments
+                          </th>
+                          <th className='p-2 font-manrope font-semibold text-xs leading-4'>
+                              Photos
+                          </th>
                       </tr>
-                      </>
-                        ))
-                      }
-                      
-                    </tbody>
-                </table>
+                  </thead>
+                  <tbody className='border-slate-100 hover:border-cyan-600 border-2 mt-4'>
+                      {checkSheets?.map((item, index) => (
+                          <tr className="border-slate-100 border hover:cursor-pointer" key={item?.id} onClick={() => handleImage(item?.photos)}>
+                              <td className='p-2 font-manrope font-normal text-sm leading-5'>{item?.block}</td>
+                              <td className='p-2 font-manrope font-normal text-sm leading-5'>{item?.section}</td>
+                              <td className='p-2 font-manrope font-normal text-sm leading-5'>{item?.row}</td>
+                              <td className='p-2 font-manrope font-normal text-sm leading-5'>{item?.activity}</td>
+                              <td className='p-2 font-manrope font-normal text-sm leading-5'>{item?.acceptanceCriteria}</td>
+                              <td className={`p-2 font-manrope font-normal text-sm leading-5 ${item?.comments === "Resolved" ? 'text-green-600' : ''}`}>
+                                  {item?.comments}
+                              </td>
+                              <td className='p-2 w-48 grid grid-cols-2 gap-4'>
+                                  {item?.photos?.map((photo, index) => (
+                                      <img key={index} src={photo} alt={`Photo ${index + 1}`} />
+                                  ))}
+                              </td>
+                          </tr>
+                      ))}
+                  </tbody>
+               </table>
+
+
+                </div>
+                <div>
+                  {
+                    openModel ? ( <>
+                    <div className="fixed top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-black bg-opacity-60">                    
+                        <div className="relative p-6">
+                            <img
+                                src={Exit}
+                                alt="Exit"
+                                className="absolute me-auto top-2 right-6 h-6 w-6 text-gray-600 hover:text-gray-800 cursor-pointer"
+                                onClick={() => {
+                                    setOpenModel(false)
+                                }}
+                            />
+                            <img
+                                src={showImage}  
+                                alt="Centered Image"
+                                className="mx-auto w-72 h-72"
+                            />
+                        </div>
+                        <div className='flex flex-row mt-4'>
+                            {prevImage?.map((ima, index) => (
+                                <div key={index} className="mx-2" onClick={() => setshowImage(ima)}>
+                                    <img src={ima} alt={`index ${index}`} />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    </>) : null
+                  }
                 </div>
                 </div>
       </div>
@@ -146,4 +200,4 @@ const Sheet = () => {
     </>
   }
 
-export default Sheet
+export default Reports
