@@ -3,6 +3,7 @@ import Header from '../commonCoponents/Header'
 import SideBar from '../commonCoponents/SideBar'
 import BackArrow from '../images/BackArrow.svg'
 import DownArrow from '../images/DownArrow.svg'
+import UpArrow from '../images/UpArrow.svg'
 import PublicPunchlist from '../images/PublicPunchlist.svg'
 import InternalPunchlist from '../images/InternalPunchlist.svg'
 import image11 from '../images/11.svg'
@@ -10,6 +11,7 @@ import image12 from '../images/12.svg'
 import image13 from '../images/13.svg'
 import image14 from '../images/14.svg'
 import Exit from '../images/Exit.svg'
+import DropDown from './DropDown'
 
 const Reports = () => {
 
@@ -60,6 +62,8 @@ const Reports = () => {
         },
       ]
 
+      const block = [0,1,2,3,4,5,6,7]
+
       const [punchList,setPunchList] = useState('Public')
       const [currentPunchList] = useState('flex flex-row bg-red-500 text-slate-100 w-44	rounded-3xl text-center text-xs leading-4 font-semibold	py-3 px-6 items-center justify-start cursor-pointer')
       const [hidePunchList] = useState('flex flex-row bg-red-100 text-slate-700 w-44	rounded-3xl text-center text-xs leading-4 font-semibold	py-3 px-6 items-center justify-start cursor-pointer')
@@ -67,7 +71,24 @@ const Reports = () => {
       const handleImage = ( photo) => {
         setshowImage(photo[0])
         setPrevImage([...photo])
+        setBlockDropdownOpen(false)
         setOpenModel(true)
+      }
+
+      const [blockDropdownOpen, setBlockDropdownOpen] = useState(false);
+      const [sectionDropdownOpen, setSectionDropdownOpen] = useState(false);
+      const [rowDropdownOpen, setRowDropdownOpen] = useState(false);
+
+      const handleBlockDropdownToggle = () => {
+        setBlockDropdownOpen(!blockDropdownOpen)
+      }
+
+      const handleSectionDropdownToggle = () => {
+        setSectionDropdownOpen(!sectionDropdownOpen)
+      }
+
+      const handleRowDropdownToggle = () => {
+        setRowDropdownOpen(!rowDropdownOpen)
       }
   return <>
   <div className="flex h-screen">
@@ -118,13 +139,31 @@ const Reports = () => {
                   <thead className='h-14 border-slate-100 hover:border-fuchsia-500 border-2'>
                       <tr className='hover:cursor-pointer'>
                           <th className='p-2 font-manrope font-semibold text-xs leading-4 '>
-                              <div className='flex flex-row'>Blocks<img src={DownArrow} alt="Block" className=''/></div> 
+                              <div className='flex flex-row relative' onClick={handleBlockDropdownToggle}>
+                                Blocks 
+                                {
+                                  blockDropdownOpen ? (<img src={DownArrow} alt="Block"/>) : (<img src={UpArrow} alt="Block"/>)
+                                }                               
+                                
+                              </div> 
+
+                              <DropDown blockDropdownOpen = {blockDropdownOpen} block ={block}/>
                           </th>
                           <th className='p-2 font-manrope font-semibold text-xs leading-4 '>
-                              <div className='flex flex-row'>Section <img src={DownArrow} alt="Section" /></div>
+                              <div className='flex flex-row relative' onClick={handleSectionDropdownToggle}>Section 
+                              {
+                                  sectionDropdownOpen ? (<img src={DownArrow} alt="Section"/>) : (<img src={UpArrow} alt="Section"/>)
+                              }
+                              </div>
+                              <DropDown blockDropdownOpen = {sectionDropdownOpen} block ={block}/>
                           </th>
                           <th className='p-2 font-manrope font-semibold text-xs leading-4'>
-                          <div className='flex flex-row'>Row <img src={DownArrow} alt="Row" /></div>
+                          <div className='flex flex-row relative' onClick={handleRowDropdownToggle}>Row 
+                            {
+                                  rowDropdownOpen ? (<img src={DownArrow} alt="Row"/>) : (<img src={UpArrow} alt="Row"/>)
+                            }
+                          </div>
+                          <DropDown blockDropdownOpen = {rowDropdownOpen} block ={block}/>
                           </th>
                           <th className='p-2 font-manrope font-semibold text-xs leading-4'>
                               Activity / Sub-Activity

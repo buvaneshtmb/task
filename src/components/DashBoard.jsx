@@ -11,11 +11,9 @@ const DashBoard = () => {
             <div className="flex flex-col">
                 <Header/>
             </div>
-            <div class="z-40 ...">05</div>
-            <div class="z-30 ...">04</div>
-            <div class="z-20 ...">03</div>
-            <div class="z-10 ...">02</div>
-            <div class="z-0 ...">01</div>
+            
+            
+
       </div>
   </div>
     </>

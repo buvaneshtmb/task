@@ -13,7 +13,6 @@ const SetUp = () => {
                 <Header/>
             </div>
 
-            <button class="bg-indigo-500 opacity-25 w-1262 h-full w-full">buvanesh</button>
       </div>
   </div>
     </>

@@ -6,6 +6,7 @@ import StaffPlant from '../components/StaffPlant';
 import Reports from '../components/Reports';
 import AccessRights from '../components/AccessRights';
 import NotFound from '../commonCoponents/NotFound';
+
 const ConcordRoutes = () => {
   return <>
   <Routes>
@@ -13,6 +14,7 @@ const ConcordRoutes = () => {
     <Route path='setup' element ={<SetUp/> }/>
     <Route path='staff-plant' element ={<StaffPlant/> }/>
     <Route path='reports' element ={<Reports/> }/>
+    <Route path='access-rights' element ={<AccessRights/> }/>
     <Route path='access-rights' element ={<AccessRights/> }/>
     <Route path='*' element={<NotFound/>}/>
   </Routes>
