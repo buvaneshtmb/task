@@ -9,12 +9,12 @@ import { useNavigate } from 'react-router-dom'
 
 const Header = () => {
     const navigate = useNavigate('')
-    const [currentHeaderTab, setCurrentHeaderTab] = useState('Dashboard')
+    const [currentHeaderTab, setCurrentHeaderTab] = useState('Reports')
     const [currentHeaderColor] = useState('flex flex-row cursor-pointer inline-block text-red-600 border-b-2 border-red-600 ')
     const [touchTab] = useState('flex flex-row cursor-pointer')
     
   return <>
-  <div className="grid grid-cols-2 gap-4 h-16">
+  <div className="grid grid-cols-2 gap-4 h-16 hover:border-fuchsia-500 border-2">
   <div className="grid grid-cols-5 justify-items-center content-center box-border ">
     <div className={currentHeaderTab === 'Dashboard' ? currentHeaderColor : touchTab }> <div className='px-1'><img src={DashBoard} alt='DashBoard' className='p-0.5' /></div> <div className='font-manrope font-medium text-sm leading-5' 
     onClick={() => {
